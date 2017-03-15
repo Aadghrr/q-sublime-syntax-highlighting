@@ -1,0 +1,84 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: q
+file_extensions: [q]
+scope: source.q
+contexts:
+  main:
+    # Strings begin and end with quotes, and use backslashes as an escape
+    # character
+    - match: '"'
+      scope: punctuation.definition.string.begin.q
+      push: double_quoted_string
+
+    # Comments begin with a '//' and finish at the end of the line
+    - match: (?:)/\b
+      scope: punctuation.definition.comment.q
+      push: line_comment
+
+    # Comments begin with a '//' and finish at the end of the line
+    #- match: '//'
+    #  scope: punctuation.definition.comment.q
+    #  push: line_comment
+
+    # Block comment
+ #   - match: '/'
+ #     scope: punctuation.definition.comment.q
+ #     push: block_comment
+
+
+    # Note that blackslashes don't need to be escaped within single quoted
+    # strings in YAML. When using single quoted strings, only single quotes
+    # need to be escaped: this is done by using two single quotes next to each
+    # other.
+
+    # keywords
+    - match: '\b(abs|acos|aj|aj0|all|and|any|asc|asin|asof|atan|attr|avg|avgs|bin|binr|ceiling|cols|cor|cos|count|cov|cross|csv|cut|delete|deltas|desc|dev|differ|distinct|div|do|dsave|each||ej|ema|enlist|eval|except|exec|exit|exp|fby|fills|first|fkeys|flip|floor|get|getenv|group|gtime|hclose|hcount|hdel|hopen|hsym|iasc|idesc|if|ij|in|insert|inter|inv|key|keys|last|like|lj|ljf|load|log|lower|lsq|ltime|ltrim|mavg|max|maxs|mdev|med|mod|next|not|null|or|over|parse|pj|prd|prev|rand|rank|ratios|reciprocal|reverse|rload|rotate|rsave|rtrim|scan|scov|sdev|select|set|setenv|show|signum|sin|sqrt|ss|sum|system|tables|tan|til|trim|type|uj|ungroup|update|upper|wavg|while|wsum|ww|xexp|from)\b'
+      scope: keyword.control
+
+    # keywords from .q namespace
+    - match: '\b(neg|not|null|string|reciprocal|floor|ceiling|signum|mod|xbar|xlog|and|or|each|scan|over|prior|mmu|lsq|inv|md5|ltime|gtime|count|first|svar|sdev|scov|med|all|any|rand|sums|prds|mins|maxs|fills|deltas|ratios|avgs|differ|prev|next|rank|reverse|iasc|asc|desc|msum|mcount|mavg|mdev|xrank|mmin|xprev|mmax|rotate|distinct|group|where|flip|type|key|til|get|value|attr|cut|set|upsert|raze|union|inter|except|cross|sv|vs|sublist|read0|read1|hopen|hclose|hdel|hsym|hcount|peach|system|ltrim|rtrim|trim|lower|uppper|ssr|view|tables|views|cols|xcols|keys|xkey|xcol|xasc|xdesc|fkeys|meta|lj|ljf|aj|aj0|ij|ijf|pj|asof|uj|ww|wj|wj1|fby|xgroup|ungroup|ej|save|load|rsave|rload|dsave|show|csv|parse|eval|reval)\b'
+      scope: keyword.control
+
+    # keywords from .Q namespace
+    - match: '\b(k|host|addr|gc|w|res|addmonths|Xf|Cf|f|fmt|ff|fl|opt|def|qt|v|ft|ord|tx|tt|fk|t|ty|nct|fu|fc|A|a|n|nA|an|b6|id|j10|x10|j12|x12|l||sw|tab|t0||s1|s2|S|a1|a0|IN|qa|qb|vt|bv|pm|pt|MAP|dd|d0|p1|p2|p|view|L|cn|pcnt|dt|ind|fp|foo|a2|qd|xy|x1|x0|x2|ua|q0|qe|ps|en|par|qm|dpt|dpft|hdpf|fsn|fs|dsftg|M|chk)\b'
+      scope: keyword.control
+    # adverbs
+    - match: '\b(/:|\:|each|over)\b'
+      scope: keyword.
+    # adverbs
+    #- match: "/:"
+    #  scope: keyword.control
+    # adverbs
+    #- match: '\b(/:|\:|each|over)\b'
+    #  scope: keyword.control
+
+    # qsql commands
+    #- match: '\b(and|select|where|from)\b'
+    #  scope: keyword.operator.q
+
+    # Numbers
+    - match: '\b(-)?[0-9.]+\b'
+      scope: constant.numeric.q
+
+  #block_comment:
+  #  - meta_scope: comment.block.q
+  #  - match: '\\.'
+  #    scope: constant.character.escape.q
+  #  - match: '/'
+  #    scope: punctuation.definition.string.end.q
+  #    pop: true
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.q
+    - match: '\\.'
+      scope: constant.character.escape.q
+    - match: '"'
+      scope: punctuation.definition.string.end.q
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.q
+    - match: $
+      pop: true
